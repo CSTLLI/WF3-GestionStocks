@@ -7,7 +7,7 @@
 /* By: vcastell <valeriocastellipro@gmail.com>	        | $$$$_  $$$$| $$__/    |___  $$  */
 /*                                              		| $$$/ \  $$$| $$      /$$  \ $$  */
 /* Created: 2022/02/02 10:41:35 vcastell     	        | $$/   \  $$| $$     |  $$$$$$/  */
-/* Updated: 2022/02/02 11:21:38 vcastell                |__/     \__/|__/      \______/   */
+/* Updated: 2022/02/03 15:21:38 vcastell                |__/     \__/|__/      \______/   */
 /*                                                                    				      */
 /******************************************************************************************/
 
@@ -96,7 +96,7 @@ class Products {
 			if (element[0].includes(ref)) {
 
 			console.log(element);
-			
+
 			element[1] = name;
 			element[2] = price;
 			}
