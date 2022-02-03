@@ -92,15 +92,17 @@ class Products {
 
 		// console.log(ref, name, price);
 
-		const result = this.products.filter(element => {
+		this.products.filter(element => {
 			if (element[0].includes(ref)) {
 
+			console.log(element);
+			
 			element[1] = name;
 			element[2] = price;
 			}
 		});
 
 		// console.log(result);
-		return result;
+		return true;
 	}
 }

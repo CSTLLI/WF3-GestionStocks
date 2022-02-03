@@ -94,30 +94,13 @@ function ViewArticles(tab) {
 			inputName.value = prop[1];
 			inputPrice.value = prop[2];
 
-			inputRef.disabled = "true";
+			inputRef.disabled = true;
 
 			btnAddItem.classList.remove("d-block");
 			btnAddItem.classList.add("d-none");
 
 			btnEditItem.classList.remove("d-none");
-			btnEditItem.classList.add("d-block");
-
-			btnEditItem.addEventListener('click', function(){
-				// console.log("sauvegardé");
-
-				stock.editProduct(inputRef.value, inputName.value, inputPrice.value);
-
-				inputRef.disabled = "true";
-				
-				btnAddItem.classList.remove("d-none");
-				btnAddItem.classList.add("d-block");
-	
-				btnEditItem.classList.remove("d-block");
-				btnEditItem.classList.add("d-none");
-
-				ViewArticles(stock.getStock());
-				form.reset();
-			})		
+			btnEditItem.classList.add("d-block");			
 		})
 	})
 }
@@ -136,6 +119,23 @@ btnAddItem.addEventListener("click", function(){
 		form.reset();
 	}
 });
+
+btnEditItem.addEventListener('click', function(){
+	// console.log("sauvegardé");
+
+	stock.editProduct(inputRef.value, inputName.value, inputPrice.value);
+
+	inputRef.disabled = false;
+
+	btnAddItem.classList.remove("d-none");
+	btnAddItem.classList.add("d-block");
+
+	btnEditItem.classList.remove("d-block");
+	btnEditItem.classList.add("d-none");
+
+	ViewArticles(stock.getStock());
+	form.reset();
+})
 
 searchBarRef.addEventListener('input', function() {
 
