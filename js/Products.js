@@ -79,15 +79,28 @@ class Products {
 	}
 
 	removeProduct(ref) {
-		let newStock = this.products.filter(element => {
+		this.products = this.products.filter(element => {
 			if (element[0] !== ref) {
 				return element;
 			}
 		})
 
-		// console.log(newStock);
-		this.products = newStock;
-
 		return false;
+	}
+
+	editProduct(ref, name, price) {
+
+		// console.log(ref, name, price);
+
+		const result = this.products.filter(element => {
+			if (element[0].includes(ref)) {
+
+			element[1] = name;
+			element[2] = price;
+			}
+		});
+
+		// console.log(result);
+		return result;
 	}
 }

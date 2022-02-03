@@ -12,7 +12,15 @@
 /******************************************************************************************/
 
 const form = document.querySelector("form");
-const btnAddItem = document.querySelector(".btn-primary");
+
+const btnAddItem = document.querySelector("#add");
+const btnEditItem = document.querySelector("#edit");
+
+let alert = document.querySelector("#alert");
+
+let inputRef = document.querySelector("#inputReference");
+let inputName = document.querySelector("#inputName");
+let inputPrice = document.querySelector("#inputPrice");
 
 
 let stock = new Products();
@@ -69,19 +77,56 @@ function ViewArticles(tab) {
 			ViewArticles(stock.getStock());
 		})
 	})
+
+	let btnEdit = document.querySelectorAll(".bi-pencil");
+	// console.log(btnEdit);
+
+	btnEdit.forEach(element => {
+		element.addEventListener("click", function(){
+			let ref = element.parentElement.parentElement.children[1].innerText;
+			//console.log(ref);
+
+			let article = stock.searchByRef(ref);
+			let prop = article[0];
+			// console.log(prop[1]);
+
+			inputRef.value = prop[0];
+			inputName.value = prop[1];
+			inputPrice.value = prop[2];
+
+			inputRef.disabled = "true";
+
+			btnAddItem.classList.remove("d-block");
+			btnAddItem.classList.add("d-none");
+
+			btnEditItem.classList.remove("d-none");
+			btnEditItem.classList.add("d-block");
+
+			btnEditItem.addEventListener('click', function(){
+				// console.log("sauvegardé");
+
+				stock.editProduct(inputRef.value, inputName.value, inputPrice.value);
+
+				inputRef.disabled = "true";
+				
+				btnAddItem.classList.remove("d-none");
+				btnAddItem.classList.add("d-block");
+	
+				btnEditItem.classList.remove("d-block");
+				btnEditItem.classList.add("d-none");
+
+				ViewArticles(stock.getStock());
+				form.reset();
+			})		
+		})
+	})
 }
 
 // EVENTS
 
 btnAddItem.addEventListener("click", function(){
 
-	let alert = document.querySelector("#alert");
-
-	let ref = document.querySelector("#inputReference").value;
-	let name = document.querySelector("#inputName").value;
-	let price = document.querySelector("#inputPrice").value;
-
-	let reponse = stock.newProduct(ref, name, price);
+	let reponse = stock.newProduct(inputRef.value, inputName.value, inputPrice.value);
 
 	if (reponse == false) {
 		alert.classList.remove('d-none');
