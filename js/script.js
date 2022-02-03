@@ -14,20 +14,23 @@
 const form = document.querySelector("form");
 const btnAddItem = document.querySelector(".btn-primary");
 
+
 let stock = new Products();
 
-stock.newProduct("1", "roues", "110");
-stock.newProduct("2", "pare-choc", "90");
-stock.newProduct("3", "jantes", "110");
-stock.newProduct("4", "rétroviseurs", "1140");
-stock.newProduct("5", "aileron", "11560");
+stock.newProduct("1", "Clavier", "110");
+stock.newProduct("2", "Souris", "90");
+stock.newProduct("3", "Lampe de bureau", "120");
+stock.newProduct("4", "PC Gamer", "1140");
+stock.newProduct("5", "Voiture", "11560");
+stock.newProduct("6", "Voiture 2", "17560");
+stock.newProduct("7", "Voiture 3", "8500");
 
 ViewArticles(stock.getStock());
+
 
 // FONCTIONS
 
 function ViewArticles(tab) {
-	// tab = stock.getStock();
 	let tbody = document.querySelector("tbody");
 
 	if (tab.length == 0){
@@ -51,6 +54,21 @@ function ViewArticles(tab) {
 								`
 		}
 	}
+
+	let btnRemove = document.querySelectorAll(".bi-trash");
+	// console.log(btnRemove);
+
+	btnRemove.forEach(element => {
+		element.addEventListener("click", function(){
+			let ref = element.parentElement.parentElement.children[1].innerText;
+			// console.log(ref);
+			
+			stock.removeProduct(ref);
+
+			// console.log(stock.getStock());
+			ViewArticles(stock.getStock());
+		})
+	})
 }
 
 // EVENTS
@@ -72,36 +90,34 @@ btnAddItem.addEventListener("click", function(){
 		// Initialisation des champs de saisie
 		form.reset();
 	}
-
 });
 
-searchBarRef.addEventListener("input", function(){
+searchBarRef.addEventListener('input', function() {
 
-	let searchBarRef = document.querySelector("#searchBarRef").value;
+	const searchBarRef = document.querySelector("#searchBarRef").value;
 	// console.log(searchBarRef);
 
 	const result = stock.searchByRef(searchBarRef);
 
-	if (result != null){
+	if (result !== null){
 		ViewArticles(result);
 	}
 })
+
 
 searchBarName.addEventListener("input", function(){
 
-	let searchBarName = document.querySelector("#searchBarName").value;
+	const searchBarName = document.querySelector("#searchBarName").value;
 	// console.log(searchBarName);
 
-	result = stock.searchByName(searchBarName);
+	const result = stock.searchByName(searchBarName);
 
 	if (result != null){
 		ViewArticles(result);
 	}
 })
 
-// console.log(searchBarName);
-
-let searchBarPrice = document.querySelectorAll("#searchBarPriceMin, #searchBarPriceMax");
+const searchBarPrice = document.querySelectorAll("#searchBarPriceMin, #searchBarPriceMax");
 
 searchBarPrice.forEach(element => {
 	element.addEventListener("input", function(){
@@ -117,22 +133,4 @@ searchBarPrice.forEach(element => {
 			ViewArticles(result);
 		}
 	})	
-})
-
-let btnRemove = document.querySelectorAll(".bi-trash");
-// console.log(btnRemove);
-
-btnRemove.forEach(element => {
-	element.addEventListener("click", function(){
-
-		let ref = element.parentElement.parentElement.children[1].innerText;
-		// console.log(ref);
-
-		stock.removeProduct(ref);
-
-		result = stock.getStock();
-		if (result != null){
-			ViewArticles(result);
-		}
-	})
 })

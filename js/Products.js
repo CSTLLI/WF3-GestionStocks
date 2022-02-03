@@ -64,9 +64,9 @@ class Products {
 
 			let valeur = parseInt(element[2]);
 
-			console.clear();
-			console.log(valeur, "plus petit: ", valeur <= max);
-			console.log(valeur, "plus grand: ", valeur >= min);
+			// console.clear();
+			// console.log(valeur, "plus petit: ", valeur <= max);
+			// console.log(valeur, "plus grand: ", valeur >= min);
 
 			if (valeur >= min && valeur <= max){
 				console.log(element);
@@ -79,12 +79,15 @@ class Products {
 	}
 
 	removeProduct(ref) {
-		this.products.filter(element => {
-			if (element[0].includes(ref)) {
-
-				this.products.splice((ref -1), 1);
-				// console.log(element);
+		let newStock = this.products.filter(element => {
+			if (element[0] !== ref) {
+				return element;
 			}
 		})
+
+		// console.log(newStock);
+		this.products = newStock;
+
+		return false;
 	}
 }
